@@ -160,7 +160,7 @@ Returns the given response header or null if not found.
 ### Example:
 
 	var myRequest = new Request({url: 'getData.php', method: 'get', onSuccess: function(responseText, responseXML) {
-		alert(this.getHeader('Date')); // Alerts the server date (for example, "Thu, 26 Feb 2009 20:26:06 GMT")
+		alert(this.getHeader('Date')); // Alerts the server date (for example, 'Thu, 26 Feb 2009 20:26:06 GMT')
 	}});
 
 Request Method: send {#Request:send}
@@ -182,7 +182,27 @@ Opens the Request connection and sends the provided data with the specified opti
 
 ### Examples:
 
-	var myRequest = new Request({url: 'http://localhost/some_url'}).send("save=username&name=John");
+	var myRequest = new Request({url: 'http://localhost/some_url'}).send('save=username&name=John');
+
+### Notes:
+
+MooTools provides several aliases for [Request:send][] to make it easier to use different methods. These aliases are post() and POST(), get() and GET(), put() and PUT() and delete() and DELETE().
+
+	var myRequest = new Request({url: 'http://localhost/some_url'});
+
+	myRequest.post('save=username&name=John');
+	// Above is equivalent to
+	myRequest.send({
+		method: 'post',
+		data: 'save=username&name=John'
+	});
+
+	myRequest.get('save=username&name=John');
+	// Above is equivalent to
+	myRequest.send({
+		method: 'get',
+		data: 'save=username&name=John'
+	});
 
 Request Method: cancel {#Request:cancel}
 --------------------------------
@@ -284,8 +304,8 @@ Sends a form or a container of inputs with an HTML request.
 
 	<form id="myForm" action="submit.php">
 		<p>
-			<input name="email" value="bob@bob.com">
-			<input name="zipCode" value="90210">
+			<input name="email" value="bob@bob.com" />
+			<input name="zipCode" value="90210" />
 		</p>
 	</form>
 

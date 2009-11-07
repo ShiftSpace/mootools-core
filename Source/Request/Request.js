@@ -1,9 +1,22 @@
 /*
-Script: Request.js
-	Powerful all purpose Request Class. Uses XMLHTTPRequest.
+---
 
-License:
-	MIT-style license.
+script: Request.js
+
+description: Powerful all purpose Request Class. Uses XMLHTTPRequest.
+
+license: MIT-style license.
+
+requires:
+- /Element
+- /Chain
+- /Events
+- /Options
+- /Browser
+
+provides: [Request]
+
+...
 */
 
 var Request = new Class({

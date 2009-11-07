@@ -1,16 +1,31 @@
 /*
-Script: JSON.js
-	JSON encoder and decoder.
+---
 
-License:
-	MIT-style license.
+script: JSON.js
 
-See Also:
-	<http://www.json.org/>
+description: JSON encoder and decoder.
+
+license: MIT-style license.
+
+See Also: <http://www.json.org/>
+
+requires:
+- /Array
+- /String
+- /Number
+- /Function
+- /Hash
+
+provides: [JSON]
+
+...
 */
 
-var JSON = new Hash({
-
+var JSON = new Hash(this.JSON && {
+	stringify: JSON.stringify,
+	parse: JSON.parse
+}).extend({
+	
 	$specialChars: {'\b': '\\b', '\t': '\\t', '\n': '\\n', '\f': '\\f', '\r': '\\r', '"' : '\\"', '\\': '\\\\'},
 
 	$replaceChars: function(chr){
@@ -38,8 +53,7 @@ var JSON = new Hash({
 
 	decode: function(string, secure){
 		if ($type(string) != 'string' || !string.length) return null;
-		if (secure && !(/^[,:{}\[\]0-9.\-+Eaeflnr-u \n\r\t]*$/).test(string.replace(/\\./g, '@').replace(/"[^"\\\n\r]*"/g, ''))) 
-			throw new Error('JSON could not decode the input; security is enabled and the value is not secure.');
+		if (secure && !(/^[,:{}\[\]0-9.\-+Eaeflnr-u \n\r\t]*$/).test(string.replace(/\\./g, '@').replace(/"[^"\\\n\r]*"/g, ''))) return null;
 		return eval('(' + string + ')');
 	}
 
